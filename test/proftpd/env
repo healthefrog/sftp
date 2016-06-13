@@ -1,0 +1,5 @@
+SFTPHostKey=/etc/ssh/ssh_host_rsa_key
+LDAPServer=ldap.example.com:389
+LDAPBindUser=cn=admin,dc=example,dc=com
+LDAPBindPassword=secret
+LDAPUsers=ou=People,dc=example,dc=com
