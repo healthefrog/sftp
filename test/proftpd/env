@@ -3,3 +3,4 @@ LDAPServer=ldap.example.com:389
 LDAPBindUser=cn=admin,dc=example,dc=com
 LDAPBindPassword=secret
 LDAPUsers=ou=People,dc=example,dc=com
+TARGET_DIR=/target
