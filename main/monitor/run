@@ -4,8 +4,8 @@ import os
 import shutil
 import sys
 import syslog
+import time
 from pathlib import Path
-from time import sleep
 from traceback import format_exc
 
 homes = Path("/home")
@@ -37,9 +37,17 @@ class User:
     def process_file(self, path):
         syslog.syslog('processing ' + str(path))
         try:
+            name = path.name
             rel = path.relative_to(self.inbox)
-            dest = self.target / rel
-            proc = self.processed / rel
+
+            while True:
+                dest = self.target / rel
+                proc = self.processed / rel
+                if not (dest.exists() or proc.exists()): break
+                rel = rel.with_name('%s-%f' % (name, time.time()))
+
+            if (rel.name != path.name): syslog.syslog(syslog.LOG_NOTICE, 'name collision: %s -> %s' % (path, rel.name))
+
             os.makedirs(str(dest.parent), exist_ok=True)
             os.makedirs(str(proc.parent), exist_ok=True)
             os.chown(str(proc.parent), os.getuid(), os.getgid())
@@ -69,7 +77,7 @@ try:
         else:
             if sleep_time < 3600: sleep_time += 60
             syslog.syslog(syslog.LOG_NOTICE, "error(s) occurred, backing off for %d seconds" % sleep_time)
-        sleep(sleep_time)
+        time.sleep(sleep_time)
 except:
     syslog.syslog(syslog.LOG_CRIT, format_exc())
     sys.exit(1)
