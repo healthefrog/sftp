@@ -11,4 +11,6 @@ ADD proftpd/run /etc/service/proftpd/
 
 ADD monitor/run /etc/service/monitor/
 
+ADD cron.daily/housekeeping /etc/cron.daily/
+
 EXPOSE 22

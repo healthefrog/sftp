@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find /home -mtime +7 -exec rm {} +
