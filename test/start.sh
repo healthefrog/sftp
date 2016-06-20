@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run --env-file=proftpd/env -v $(pwd)/proftpd/ssh:/etc/ssh proftpd
+docker run -d --name sftp --env-file=sftp/env -v $(pwd)/sftp/ssh:/etc/ssh:ro sftp
