@@ -1,3 +1,4 @@
+oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
 slapd slapd/password1 password secret
 slapd slapd/password2 password secret
 slapd slapd/domain string example.com
