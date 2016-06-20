@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec slapd -d 0 -u openldap -g openldap
