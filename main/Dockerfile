@@ -1,5 +1,7 @@
 FROM phusion/baseimage:0.9.18
 
+ENV LDAP_USERS_FILTER (&(uid=%v)(objectclass=ldapPublicKey))
+
 RUN add-apt-repository ppa:healthforge.io/ppa && \
     apt-get -y update && \
     apt-get -y install proftpd-basic proftpd-mod-ldap proftpd-mod-sftp-ldap python3-pip && \
