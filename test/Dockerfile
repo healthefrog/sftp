@@ -16,6 +16,8 @@ RUN add-apt-repository -y ppa:webupd8team/java && \
     /opt/keycloak-$KEYCLOAK_VERSION/bin/add-user-keycloak.sh -r master -u admin -p secret && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ADD keycloak/theme /opt/keycloak-$KEYCLOAK_VERSION/themes/healthforge
+
 ADD openldap/run /etc/service/openldap/
 ADD keycloak/run /etc/service/keycloak/
 
