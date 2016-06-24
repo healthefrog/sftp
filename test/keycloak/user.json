@@ -1,0 +1,9 @@
+{
+  "username": "test",
+  "enabled": "true",
+  "firstName": "Testy",
+  "lastName": "McTestFace",
+  "attributes": {
+    "sshPublicKey": ["---- BEGIN SSH2 PUBLIC KEY ----\nAAAAB3NzaC1yc2EAAAADAQABAAABAQDaOrQKZgfGNktr+GkS6msX9MEW/F/IQowvsl08Vl\ntfzcQ1ndfFACXOwbQXtfRYjDHCUi8xvWDwFNTGSnNLI9Mk519JKEUEe0Cu83PSIWfHAZQE\n7F97pqFXcnE1wfyXzNCSdlexXksbo4u7GulNMA7T0oMW2h2IudRj14twv6d14QCVzuvEZD\ngQkI6FxAcc6ehk7X9TIJUKiNFxsUsTJuuhlFj6vvg4dfUSau007cmDoS8HTcCvfbD99HBY\nvPOBoKM/RLwr36aK19tVSVNru3H1aJp6sxAKC8UBfpN+PAXrytJiuF/gX/PKNoX4RgoZYI\nJ2z1llPyphufWizrCPkQHt\n---- END SSH2 PUBLIC KEY ----\n"]
+  }
+}

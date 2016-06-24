@@ -1,0 +1,58 @@
+{
+  "realm" : "test",
+  "enabled": true,
+  "adminTheme": "healthforge",
+  "userFederationProviders" : [ {
+    "displayName" : "ldap",
+    "providerName" : "ldap",
+    "config" : {
+      "debug" : "false",
+      "pagination" : "true",
+      "searchScope" : "1",
+      "useTruststoreSpi" : "ldapsOnly",
+      "connectionPooling" : "true",
+      "usersDn" : "ou=users,dc=example,dc=com",
+      "userAccountControlsAfterPasswordUpdate" : "true",
+      "useKerberosForPasswordAuthentication" : "false",
+      "userObjectClasses" : "account, ldapPublicKey",
+      "bindCredential" : "secret",
+      "bindDn" : "cn=admin,dc=example,dc=com",
+      "usernameLDAPAttribute" : "uid",
+      "rdnLDAPAttribute" : "uid",
+      "vendor" : "other",
+      "editMode" : "WRITABLE",
+      "uuidLDAPAttribute" : "entryUUID",
+      "allowKerberosAuthentication" : "false",
+      "connectionUrl" : "ldap://localhost",
+      "syncRegistrations" : "true",
+      "authType" : "simple",
+      "batchSizeForSync" : "1000"
+    },
+    "priority" : 0,
+    "fullSyncPeriod" : 604800,
+    "changedSyncPeriod" : 86400
+  } ],
+  "userFederationMappers" : [ {
+    "name" : "username",
+    "federationProviderDisplayName" : "ldap",
+    "federationMapperType" : "user-attribute-ldap-mapper",
+    "config" : {
+      "always.read.value.from.ldap" : "false",
+      "read.only" : "false",
+      "ldap.attribute" : "uid",
+      "is.mandatory.in.ldap" : "true",
+      "user.model.attribute" : "username"
+    }
+  }, {
+    "name" : "ssh public key",
+    "federationProviderDisplayName" : "ldap",
+    "federationMapperType" : "user-attribute-ldap-mapper",
+    "config" : {
+      "always.read.value.from.ldap" : "true",
+      "read.only" : "false",
+      "ldap.attribute" : "sshPublicKey",
+      "is.mandatory.in.ldap" : "true",
+      "user.model.attribute" : "sshPublicKey"
+    }
+  } ]
+}
