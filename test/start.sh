@@ -2,6 +2,7 @@
 
 KEYCLOAK_PORT=8080
 KEYCLOAK_BASE="http://localhost:$KEYCLOAK_PORT/auth"
+SSH_PORT=2222
 
 docker rm -f sftp || true
 docker build -t sftp ../main
@@ -10,7 +11,9 @@ docker rm -f sftptest || true
 docker build -t sftptest .
 
 docker run -d --name sftptest -p 1389:389 -p $KEYCLOAK_PORT:8080 sftptest
-docker run -d --name sftp --link sftptest:sftptest -p 2222:22 --env-file=sftp/env -v $(pwd)/sftp/ssh:/etc/ssh:ro sftp
+
+mkdir -p target
+docker run -d --name sftp --link sftptest:sftptest -p $SSH_PORT:22 --env-file=sftp/env -v $(pwd)/sftp/ssh:/etc/ssh:ro -v $(pwd)/target:/target sftp
 
 echo
 
@@ -43,3 +46,19 @@ curl  "$KEYCLOAK_BASE/admin/realms/test/users" \
  -H "Authorization: Bearer $TKN" \
  --data-binary @keycloak/user.json
 echo " ok"
+
+echo -n "Uploading test file... "
+env -i scp -q -F /dev/null -P $SSH_PORT -i ssh/test_id_rsa test-upload.txt test@localhost:inbox/
+echo " ok"
+
+echo -n "Waiting for file to appear in target directory... "  # tried to do this with inotifywait but it was more hassle than it was worth
+while ! [ -f target/test/test-upload.txt ]; do
+    sleep 1
+done
+diff -q test-upload.txt target/test/test-upload.txt
+echo " ok"
+
+echo "Cleaning up... "
+docker exec sftp rm -r /target/test  # hack because it's owned by root
+docker rm -f sftp
+docker rm -f sftptest
