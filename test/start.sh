@@ -1,5 +1,6 @@
 #!/bin/sh -e
 
+AMQP_PORT=5672
 KEYCLOAK_PORT=8080
 KEYCLOAK_BASE="http://localhost:$KEYCLOAK_PORT/auth"
 SSH_PORT=2222
@@ -10,7 +11,7 @@ docker build -t sftp ../main
 docker rm -f sftptest || true
 docker build -t sftptest .
 
-docker run -d --name sftptest -p 1389:389 -p $KEYCLOAK_PORT:8080 sftptest
+docker run -d --name sftptest -p $AMQP_PORT:5672 -p $KEYCLOAK_PORT:8080 sftptest
 
 mkdir -p target
 docker run -d --name sftp --link sftptest:sftptest -p $SSH_PORT:22 --env-file=sftp/env -v $(pwd)/sftp/ssh:/etc/ssh:ro -v $(pwd)/target:/target sftp
@@ -47,6 +48,10 @@ curl  "$KEYCLOAK_BASE/admin/realms/test/users" \
  --data-binary @keycloak/user.json
 echo " ok"
 
+echo -n "Starting AMQP listener... "
+amqp-consume -u amqp://localhost:5672 -q sftp -x -c 1 cat > msg-actual.json &
+echo " ok"
+
 echo -n "Uploading test file... "
 env -i scp -q -F /dev/null -P $SSH_PORT -i ssh/test_id_rsa test-upload.txt test@localhost:inbox/
 echo " ok"
@@ -58,7 +63,12 @@ done
 diff -q test-upload.txt target/test/test-upload.txt
 echo " ok"
 
+echo -n "Checking message content... "
+jq -Sc . msg-actual.json | diff rabbitmq/msg-expected.json -
+echo " ok"
+
 echo "Cleaning up... "
+rm msg-actual.json
 docker exec sftp rm -r /target/test  # hack because it's owned by root
 docker rm -f sftp
 docker rm -f sftptest
