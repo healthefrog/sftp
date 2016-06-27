@@ -13,8 +13,7 @@ homes = Path("/home")
 targets = Path(os.environ['TARGET_DIR'])
 
 mq_url = os.environ.get('MESSAGE_BROKER_URL')
-mq_exchange = os.environ.get('MESSAGE_EXCHANGE')
-mq_exchange = mq_exchange and kombu.Exchange(mq_exchange)
+mq_exchange = kombu.Exchange(os.environ.get('MESSAGE_EXCHANGE') or "")
 mq_routing_key = os.environ.get('MESSAGE_ROUTING_KEY')
 
 class User:
@@ -71,7 +70,7 @@ class User:
             return True
 
     def send_msg(self, path, size):
-        if mq_url and mq_exchange:
+        if mq_url:
             payload = {'user': self.name, 'path': path, 'size': size}
             with kombu.Connection(mq_url, transport_options = {'confirm_publish': True}) as conn:
                 retry_policy = { 'max_retries': 5, 'errback': self.report_msg_err }
@@ -94,7 +93,7 @@ class User:
 syslog.openlog(ident="monitor", logoption=syslog.LOG_PID, facility=syslog.LOG_DAEMON)
 syslog.syslog("monitor started")
 
-if not (mq_url and mq_exchange):
+if not (mq_url):
     syslog.syslog(syslog.LOG_WARNING, "no message broker details provided, will not publish messages")
 
 
