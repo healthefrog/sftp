@@ -27,6 +27,10 @@ MESSAGE_BROKER_URL: URL of message broker
 MESSAGE_EXCHANGE: exchange name (blank for default exchange)
 MESSAGE_ROUTING_KEY: routing key (optional)
 
+### Logging details
+
+LOGSTASH_SERVICE_HOST, LOGSTASH_SERVICE_PORT: location of logstash server
+
 ## Test / demo
 
 The test/ directory contains a harness which can be used to demo and

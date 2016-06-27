@@ -1,0 +1,9 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - /var/log/syslog
+      input_type: log
+output:
+  logstash:
+    hosts: ["${LOGSTASH_SERVICE_HOST}:${LOGSTASH_SERVICE_PORT}"]
