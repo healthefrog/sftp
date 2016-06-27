@@ -23,4 +23,4 @@ echo " ok"
 
 echo "Cleaning up... "
 rm msg-actual.json
-docker exec sftp rm -r /target/test  # hack because it's owned by root
+docker exec sftp rm -r /home/test /target/test
