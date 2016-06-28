@@ -8,7 +8,7 @@ docker build -t sftp ../main
 docker rm -f sftptest || true
 docker build -t sftptest .
 
-docker run -d --name sftptest -p $AMQP_PORT:5672 -p $KEYCLOAK_PORT:8080 sftptest
+docker run -d --name sftptest -p $KIBANA_PORT:5601 -p $AMQP_PORT:5672 -p $KEYCLOAK_PORT:8080 sftptest
 
 mkdir -p target
 docker run -d --name sftp --link sftptest:sftptest -p $SSH_PORT:22 --env-file=sftp/env -v $(pwd)/sftp/ssh:/etc/ssh:ro -v $(pwd)/target:/target sftp

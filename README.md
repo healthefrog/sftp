@@ -38,10 +38,10 @@ test the server.
 
 The start.sh script will bring up two docker containers, one
 containing the SFTP server and the other the supporting infrastructure
-(openldap, keycloak and rabbitmq).  Ports are mapped onto the host
-according to the settings in config.sh.  The keycloak server is
-created with an 'admin' account with password 'secret'.  Files are
-sent to the target/ directory.
+(openldap, keycloak, rabbitmq, logstash/elasticsearch/kibana).  Ports
+are mapped onto the host according to the settings in config.sh.  The
+keycloak server is created with an 'admin' account with password
+'secret'.  Files are sent to the target/ directory.
 
 The test.sh script uploads a file to the demo server and verifies that
 it performs as expected.  The stop.sh script stops and removes both

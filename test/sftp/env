@@ -2,6 +2,7 @@ LDAP_SERVER=sftptest:389
 LDAP_BIND_USER=cn=admin,dc=example,dc=com
 LDAP_BIND_PASSWORD=secret
 LDAP_USERS_BASE=ou=users,dc=example,dc=com
+LOGSTASH_SERVICE_HOST=sftptest
 MESSAGE_BROKER_URL=amqp://guest:guest@sftptest/
 MESSAGE_EXCHANGE=
 MESSAGE_ROUTING_KEY=sftp
