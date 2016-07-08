@@ -14,7 +14,7 @@
       "usersDn" : "ou=users,dc=example,dc=com",
       "userAccountControlsAfterPasswordUpdate" : "true",
       "useKerberosForPasswordAuthentication" : "false",
-      "userObjectClasses" : "account, ldapPublicKey",
+      "userObjectClasses" : "inetOrgPerson, ldapPublicKey",
       "bindCredential" : "secret",
       "bindDn" : "cn=admin,dc=example,dc=com",
       "usernameLDAPAttribute" : "uid",
@@ -43,7 +43,32 @@
       "is.mandatory.in.ldap" : "true",
       "user.model.attribute" : "username"
     }
-  }, {
+  },
+    {
+      "name" : "first name",
+      "federationMapperType" : "user-attribute-ldap-mapper",
+      "federationProviderDisplayName" : "ldap",
+      "config" : {
+        "ldap.attribute" : "cn",
+        "user.model.attribute" : "firstName",
+        "is.mandatory.in.ldap" : "true",
+        "read.only" : "false",
+        "always.read.value.from.ldap" : "false"
+      }
+    },
+    {
+      "name" : "last name",
+      "federationMapperType" : "user-attribute-ldap-mapper",
+      "federationProviderDisplayName" : "ldap",
+      "config" : {
+        "ldap.attribute" : "sn",
+        "user.model.attribute" : "lastName",
+        "is.mandatory.in.ldap" : "true",
+        "read.only" : "false",
+        "always.read.value.from.ldap" : "false"
+      }
+    },
+    {
     "name" : "ssh public key",
     "federationProviderDisplayName" : "ldap",
     "federationMapperType" : "user-attribute-ldap-mapper",
