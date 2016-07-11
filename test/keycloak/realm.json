@@ -2,6 +2,15 @@
   "realm" : "test",
   "enabled": true,
   "adminTheme": "healthforge",
+  "users": [ {
+    "username": "admin",
+    "credentials": [ {
+      "type": "password",
+      "value": "secret"
+    } ],
+    "enabled": "true",
+    "clientRoles": {"realm-management": ["realm-admin"] }
+  } ],
   "userFederationProviders" : [ {
     "displayName" : "ldap",
     "providerName" : "ldap",

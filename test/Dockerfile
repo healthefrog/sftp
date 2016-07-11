@@ -27,14 +27,13 @@ ADD logstash/logstash.conf /etc/logstash/
 ADD logstash/run /etc/service/logstash/
 
 ADD keycloak/theme /opt/keycloak-$KEYCLOAK_VERSION/themes/healthforge
-ADD rabbitmq/rabbitmq.config /etc/rabbitmq/
-
 ADD keycloak/run /etc/service/keycloak/
 
 ADD kibana/run /etc/service/kibana/
 
 ADD openldap/run /etc/service/openldap/
 
+ADD rabbitmq/rabbitmq.config /etc/rabbitmq/
 ADD rabbitmq/run /etc/service/rabbitmq/
 
 EXPOSE 389 5601 5672 8080
