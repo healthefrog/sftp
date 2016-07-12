@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.18
+FROM phusion/baseimage:0.9.19
 
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV KEYCLOAK_VERSION 1.9.8.Final

@@ -58,30 +58,27 @@ dn: cn=module{0},cn=config
 objectClass: olcModuleList
 cn: module{0}
 olcModulePath: /usr/lib/ldap
-olcModuleLoad: back_hdb
+olcModuleLoad: back_mdb
 olcModuleLoad: ppolicy
 
 # Set defaults for the backend
-dn: olcBackend=hdb,cn=config
+dn: olcBackend=mdb,cn=config
 objectClass: olcBackendConfig
-olcBackend: hdb
+olcBackend: mdb
 
 # The database definition.
-dn: olcDatabase=hdb,cn=config
+dn: olcDatabase=mdb,cn=config
 objectClass: olcDatabaseConfig
-objectClass: olcHdbConfig
-olcDatabase: hdb
+objectClass: olcMdbConfig
+olcDatabase: mdb
 olcDbCheckpoint: 512 30
-olcDbConfig: set_cachesize 0 2097152 0
-olcDbConfig: set_lk_max_objects 1500
-olcDbConfig: set_lk_max_locks 1500
-olcDbConfig: set_lk_max_lockers 1500
+olcDbIndex: objectClass eq
+olcDbIndex: cn,uid eq
 olcLastMod: TRUE
 olcSuffix: dc=example,dc=com
 olcDbDirectory: /var/lib/ldap
 olcRootDN: cn=admin,dc=example,dc=com
 olcRootPW: e1NTSEF9N05jZU1KV0l5R2lnU0ZvUlkxSm1makllci83alFnNzY=
-olcDbIndex: objectClass eq
 olcAccess: to attrs=userPassword,shadowLastChange
   by self write
   by anonymous auth
@@ -92,7 +89,7 @@ olcAccess: to *
   by dn="cn=admin,dc=example,dc=com" write
   by * read
 
-dn: olcOverlay=ppolicy,olcDatabase={1}hdb,cn=config
+dn: olcOverlay=ppolicy,olcDatabase={1}mdb,cn=config
 objectClass: olcOverlayConfig
 objectClass: olcPPolicyConfig
 olcOverlay: ppolicy
