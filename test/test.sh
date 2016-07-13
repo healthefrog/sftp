@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/sh -e
 
 . ./config.sh
+
+trap 'echo "Cleaning up... "; rm -f msg-actual.json; docker exec sftp rm -r /home/test /target/test' EXIT
 
 echo -n "Starting AMQP listener... "
 amqp-consume -u amqp://localhost:5672 -q sftp -x -c 1 cat > msg-actual.json &
@@ -20,7 +22,3 @@ echo " ok"
 echo -n "Checking message content... "
 jq -Sc . msg-actual.json | diff rabbitmq/msg-expected.json -
 echo " ok"
-
-echo "Cleaning up... "
-rm msg-actual.json
-docker exec sftp rm -r /home/test /target/test
