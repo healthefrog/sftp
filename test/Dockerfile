@@ -38,4 +38,4 @@ ADD openldap/run /etc/service/openldap/
 ADD rabbitmq/rabbitmq.config /etc/rabbitmq/
 ADD rabbitmq/run /etc/service/rabbitmq/
 
-EXPOSE 389 636 5601 5672 8080
+EXPOSE 389 636 5601 5671 5672 8080

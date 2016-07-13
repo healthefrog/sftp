@@ -3,6 +3,7 @@
 import kombu
 import os
 import shutil
+import ssl
 import sys
 import syslog
 import time
@@ -72,7 +73,11 @@ class User:
     def send_msg(self, path, size):
         if mq_url:
             payload = {'user': self.name, 'path': path, 'size': size}
-            with kombu.Connection(mq_url, transport_options = {'confirm_publish': True}) as conn:
+            with kombu.Connection(
+                    mq_url,
+                    transport_options = {'confirm_publish': True},
+                    ssl = {'ca_certs': '/etc/ssl/certs/ca-certificates.crt', 'cert_reqs': ssl.CERT_REQUIRED}
+            ) as conn:
                 retry_policy = { 'max_retries': 5, 'errback': self.report_msg_err }
                 conn.ensure_connection(**retry_policy)
                 with conn.Producer() as prod:
