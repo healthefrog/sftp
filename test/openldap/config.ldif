@@ -13,6 +13,10 @@ olcLogLevel: none
 # for indexing.
 olcToolThreads: 1
 olcPasswordCryptSaltFormat: $6$rounds=20000$%.16s
+olcTLSCACertificateFile: /etc/ssl/certs/ca-certificates.crt
+olcTLSCertificateFile: /etc/ssl/certs/sftptest.crt
+olcTLSCertificateKeyFile: /etc/ssl/private/sftptest.key
+olcTLSCipherSuite: NONE:+VERS-TLS1.2:+VERS-TLS1.1:+VERS-TLS1.0:+DHE-RSA:+RSA:+AES-128-CBC:+AES-256-CBC:+SIGN-RSA-SHA256:+SIGN-RSA-SHA384:+SIGN-RSA-SHA512:+SIGN-RSA-SHA224:+SIGN-RSA-SHA1:+SIGN-DSA-SHA256:+SIGN-DSA-SHA224:+SIGN-DSA-SHA1:+SHA256:+SHA384:+SHA1:+COMP-NULL:!NULL
 
 # Frontend settings
 dn: olcDatabase={-1}frontend,cn=config
@@ -88,6 +92,7 @@ olcAccess: to dn.base="" by * read
 olcAccess: to *
   by dn="cn=admin,dc=example,dc=com" write
   by * read
+olcSecurity: tls=1
 
 dn: olcOverlay=ppolicy,olcDatabase={1}mdb,cn=config
 objectClass: olcOverlayConfig

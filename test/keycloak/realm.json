@@ -32,7 +32,7 @@
       "editMode" : "WRITABLE",
       "uuidLDAPAttribute" : "entryUUID",
       "allowKerberosAuthentication" : "false",
-      "connectionUrl" : "ldap://localhost",
+      "connectionUrl" : "ldaps://sftptest",
       "syncRegistrations" : "true",
       "authType" : "simple",
       "batchSizeForSync" : "1000"
