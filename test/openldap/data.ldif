@@ -1,9 +1,3 @@
 dn: ou=users,dc=example,dc=com
 objectClass: organizationalunit
 ou: users
-
-dn: ou=policies,dc=example,dc=com
-objectClass: organizationalUnit
-objectClass: pwdPolicy
-ou: policies
-pwdAttribute: userPassword
