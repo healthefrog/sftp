@@ -25,4 +25,9 @@ ADD cron.daily/housekeeping /etc/cron.daily/
 ADD filebeat/filebeat.yml /etc/filebeat/
 ADD filebeat/run /etc/service/filebeat/
 
+ADD entry.sh /sbin/
+
+ENTRYPOINT ["entry.sh"]
+CMD ["/sbin/my_init"]
+
 EXPOSE 22

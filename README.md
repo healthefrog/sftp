@@ -8,12 +8,16 @@ notification.
 
 ## Configuration
 
-The following environment variables are available for configuration:
+The following environment variables and other options are available
+for configuration:
 
 ### SFTP details
 
-SSH_HOST_KEY: location of the SSH host key on the container filesystem
-TARGET_DIR: location of the final target directory for files
+The container expects to find an ssh host private key in
+/etc/secrets/ssh_host_key.
+
+Incoming files are copied to the /target directory, which should be
+mounted appropriately.
 
 ### LDAP details
 
