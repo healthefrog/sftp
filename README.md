@@ -14,7 +14,7 @@ for configuration:
 ### SFTP details
 
 The container expects to find an ssh host private key in
-/etc/secrets/ssh_host_key.
+/etc/secrets/ssh-host-key.
 
 Incoming files are copied to the /target directory, which should be
 mounted appropriately.
